@@ -540,4 +540,4 @@ your API locally in order to test your frontend.
 The frontend is only expected to run locally, I don't ask you to deploy it online. (Although, the ones that are interested to do so
 may look how to easily deploy a Vue application with [gitlab pages](https://cli.vuejs.org/guide/deployment.html#gitlab-pages)).
 
-Send this to qrichaud.pro@gmail.com by the 12th november 2022.
+Send this to qrichaud.pro@gmail.com by the 15th november 2022.

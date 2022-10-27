@@ -51,8 +51,10 @@
 <script>
 export default {
   name: 'App',
-  data: {
-    title: 'My App Title'
+  data: function() {
+    return {
+      title: 'My App Title'
+    }
   }
 }
 </script>

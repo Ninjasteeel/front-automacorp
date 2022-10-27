@@ -27,7 +27,7 @@ export default {
   data: function() {
     return {
       title: 'My App Title',
-      currentPanel: null
+      currentPanel: {}
     }
   },
   methods: {

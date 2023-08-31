@@ -1,0 +1,13 @@
+default:
+  image: alpine:latest
+
+pages:
+  stage: deploy
+  script:
+    - cp -R ./presentation public
+    - mv ./public/presentation.html ./public/index.html
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

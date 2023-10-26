@@ -1,0 +1,17 @@
+{
+  "name": "simple_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:api_server": "json-server --watch server_data/data.json --routes routes.json -p 3014",
+    "db:init": "cp server_data/data_initial.json server_data/data.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.12.3",
+    "json-server": "^0.16.2",
+    "rimraf": "^3.0.2"
+  }
+}

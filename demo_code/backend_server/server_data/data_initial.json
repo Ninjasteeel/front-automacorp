@@ -1,0 +1,14 @@
+{
+  "windows": [
+    {
+      "id": 0,
+      "name": "Window 1",
+      "windowStatus": "OPEN"
+    },
+    {
+      "id": 1,
+      "name": "Window 2",
+      "windowStatus": "CLOSED"
+    }
+  ]
+}

@@ -1,20 +1,22 @@
 <template>
   <div id="app">
-    <div class="menu">
-      <button class="open-menu-btn" v-if="!isMenuOpen" @click="toggleMenu">Open</button>
-      <button class="close-menu-btn" v-if="isMenuOpen" @click="toggleMenu">Close</button>
-      <div class="menu-content" v-if="isMenuOpen">
-        <div class="menu-item">Home</div>
-        <div class="menu-item">About</div>
-      </div>
-    </div>
+
+    <button class="btn btn-primary open-menu-btn" v-if="!isMenuOpen" @click="toggleMenu">Open</button>
+    <button class="btn btn-danger close-menu-btn" v-if="isMenuOpen" @click="toggleMenu">Close</button>
+
+
+    <ul class="list-group menu" v-if="isMenuOpen">
+      <li class="list-group-item">Home</li>
+      <li class="list-group-item">About</li>
+    </ul>
+
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  data: function() {
+  data: function () {
     return {
       isMenuOpen: false
     }
@@ -35,6 +37,14 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin-left: 100px;
 }
 
+.menu {
+  width: 200px;
+}
+
+button {
+  display: block;
+}
 </style>

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:api_server": "json-server --watch server_data/data.json --routes routes.json -p 3014",
+    "start": "json-server --watch server_data/data.json --routes routes.json -p 3014",
     "db:init": "cp server_data/data_initial.json server_data/data.json"
   },
   "author": "",

@@ -74,44 +74,19 @@ We are going to discover the Vue framework.
 
 Like most of JS libraries and tools : the official documentation is very good, and you can easily learn by yourself with it.
 
-<https://vuejs.org/v2/guide/>
+<https://vuejs.org/guide/introduction.html>
 
 ---
 
-# Discovering the demo project
+# Demonstration of VueJS
 
-Go into `3_vue/demo_code/exercise_base`.
+See `./demo_code/1_replace_JS_with_Vue`. This repository is a VueJS project. Setup and run
+the project with the following commands :
 
-I setup the project structure, so you can directly code. Setting up a project require also some learning.
-
-FYI I used "Vue CLI" for setting up the project. It is a tool that scaffolds automatically a project, it setups all JS tools 
-for you (Webpack, babel, ESLint, CSS processors, …). When starting a new project, it is a good idea. But setting up Vue on an 
-existing project is more complex and requires you to configure it by hand.
-
----
-
-# Discovering the demo project
-
-Install the npm dependencies : 
-
-`npm install`
-
-Run the development server : 
-
-`npm run serve`
-
-The app is now served on <http://localhost:8080/>
-
----
-
-# Discovering the demo project
-
-The project entrypoint is in the file `./src/main.js`. 
-
-The root Vue component (which will import all other Vue components of our app) is defined in the file `App.vue`.
-
-In this course, we will only use the development server. But for real world app, we also need to use a building toolchain
-(Vue CLI can provide this out of the box) and a production server (not provided by Vue CLI).
+```bash
+$ npm install
+$ npm run dev
+```
 
 ---
 
@@ -196,6 +171,19 @@ export default {
 </script>
 ```
 
+*See demo_code 0*
+
+---
+
+# Chrome developper tools extension for VueJS
+
+You can install this Chrome extension : https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=fr
+
+It will give you a new tab in your chrome developpers tools, with practical tools 
+to inspect the components of your Vue application.
+
+![](./imgs/devtools.png)
+
 ---
 
 # Vue Component Template Syntax
@@ -258,7 +246,89 @@ export default {
 
 ---
 
-# Cue our demo project
+# Nesting components in VueJS
+
+```vue
+// Child component  
+<template>
+  <li>{{ text }}</li>
+</template>
+
+<script>
+export default {
+  name: 'TodoItem',
+  data: {
+    text: 'My todo text'  }
+}
+</script>
+```
+
+
+```html
+// Parent component
+<template>
+  <div id="app-7">
+    <todo-item></todo-item>
+  </div>
+</template>
+
+<script>
+import TodoItem from '.TodoItem.vue';
+
+export default {
+  name: 'App',
+  components: {
+    TodoItem
+  }
+}
+</script>
+```
+
+---
+
+# Passing data to nested components
+
+```js
+<template>
+  <li>{{ text }}</li>
+</template>
+
+<script>
+export default {
+  name: 'TodoItem',
+  // The todo-item component now accepts a
+  // "prop", which is like a custom attribute.
+  // This prop is called text.
+  props: ['text']
+}
+</script>
+```
+
+```html
+<div id="app-7">
+  <!--
+    Now we provide each todo-item with the todo object
+    it's representing, so that its content can be dynamic.
+  -->
+  <todo-item
+    :text="'My value'"
+  ></todo-item>
+</div>
+```
+
+
+---
+
+# A few examples of the usage of VueJS
+
+- In demo code 1 : opening and closing a menu. See the difference between the version
+  with native JS, and the version using the VueJS framework
+- In demo code 2 : an example of navigating between two panels, dynamically changing
+  the main content of the page
+
+---
+
+# The demo project
 
 For now, I have only put the HTML with raw sample data and no logic. I am going to refactor progressively this HTML into a Vue App.
 
@@ -284,7 +354,16 @@ export default {
 
 ---
 
-# Passing data between components
+# Implementing the demo step by step
+
+Step 0 : I integrated all the HTML and CSS, but put no JS logic and
+didn't organize my VueJS app in logical subcomponents.
+
+Step 1 : I divided my app in subcomponents
+
+---
+
+# Step 2 : Transfering data between components
 
 Now we want to bind data between our templates and the JS part of our components. This is how we are going to structure the data :
 
@@ -295,38 +374,10 @@ Now we want to bind data between our templates and the JS part of our components
 
 For this, we are using the `prop` mechanism.
 
-
 ---
 
-```js
-Vue.component('todo-item', {
-  // The todo-item component now accepts a
-  // "prop", which is like a custom attribute.
-  // This prop is called todo.
-  props: ['todo'],
-  template: '<li>{{ todo.text }}</li>'
-})
-```
+# Our demo project - Step 2
 
-```html
-<div id="app-7">
-  <!--
-    Now we provide each todo-item with the todo object
-    it's representing, so that its content can be dynamic.
-    We also need to provide each component with a "key",
-    which will be explained later.
-  -->
-  <todo-item
-    :todo="item"
-  ></todo-item>
-</div>
-```
-
----
-
-# Our demo project
-
-Step 2 : 
 
 - setup the data of windows list in the `WindowsList` component
 - generate with `v-for` a list of `WindowsListItem` components, for each window
@@ -334,7 +385,7 @@ Step 2 :
 
 ---
 
-# Our demo project
+# Our demo project - Step 2
 
 Note : 
 
@@ -347,7 +398,7 @@ Note :
 
 ---
 
-# Our demo project
+# Our demo project - Step 3
 
 Step 3 : we want to make each window item expandable on click
 
@@ -358,13 +409,15 @@ Step 3 : we want to make each window item expandable on click
 
 ---
 
-# Our demo projet
+# Our demo projet - Step 4
 
 Step 4 : Get real data from the backend through the HTTP API
 
-In order to get data from the backend, we are going to use a small library to easily do Ajax : axios.
+In order to get data from the backend, we are going to use a 
+small library to easily do Ajax : axios.
 
-Note : this is one of the difference with a full fledged framework like Angular. Angular has already a built-in 
+Note : this is one of the difference with a full fledged framework 
+like Angular. Angular has already a built-in 
 tool for ajax requests. Vue is more modular, and let you use your own ajax tooling.
 
 ---
@@ -377,12 +430,13 @@ Install axios
 
 Run your backend server locally, or use the online backend server if you have deployed it.
 
-I will run the backend locally on <http://localhost:8090>
+I will run the backend locally on <http://localhost:3014>
 
-Note : your backend **must** be configured to send `Access-Control-Allow-Origin: *` headers, otherwise
-only a frontend on the same HOST than the API can access it. APIs are generally configured to do so, 
-because it is the norm to access them from different Hosts.
-
+Note : there is a difficulty in browsers to access data from a different origin than
+when your webpage is hosted (localhost:5173 vs localhost:3014). In order to make the 
+setup easier, in your assignment template project, I've configured a proxy 
+(built-in tool from VueJS), to proxy the API 
+directly to the same host than your frontend.
 
 ---
 
@@ -391,7 +445,7 @@ because it is the norm to access them from different Hosts.
 The JS code to make an ajax request with axios :
 
 ```js
-let response = await axios.get('http://localhost:8080/windows');
+let response = await axios.get('http://localhost:3014/api/windows');
 let windows = response.data;
 ```
 
@@ -402,8 +456,6 @@ Where do we put this code in our Vue component?
 We want the windows list to be loaded as soon as the component is created : we will put 
 the code into a "lifecycle hook", that is a special function that Vue garantees will be called
 at certain life step of the component.
-
-I need to adapt the data format, which is different from the real API than the demo data I used.
 
 In the `WindowList` component object : 
 

@@ -21,7 +21,7 @@
             <button type="button" class="btn btn-secondary me-2" @click="switchWindow">
               {{ isWindowOpen ? 'Close' : 'Open' }} window
             </button>
-            <button type="button" class="btn btn-danger" @click="showDeleteConfirmation">Delete window</button>
+            <button type="button" class="btn btn-danger" @click="deleteWindow()">Delete window</button>
           </div>
         </template>
       </div>
@@ -74,9 +74,15 @@ export default {
             name: this.window.windowStatus.name,
             value: newWindowStatus,
             sensorType: this.window.windowStatus.sensorType
-          }
+          },
+          roomId: this.window.roomId 
         };
-        let response = await axios.put(`https://myapi.cleverapps.io/api/windows/${this.window.id}`, jsonPayload);
+let response = await axios.put(`http://localhost:8085/api/windows/${this.window.id}`, jsonPayload, {
+  auth: {
+    username: 'user',
+    password: 'password'
+  }
+});
         let updatedWindow = response.data;
         this.$emit('window-updated', updatedWindow);
       } catch (error) {
@@ -96,7 +102,12 @@ export default {
     },
     async deleteWindow() {
       try {
-        const response = await axios.delete(`https://myapi.cleverapps.io/api/windows/${this.window.id}`);
+        const response = await axios.delete(`http://localhost:8085/api/windows/${this.window.id}`,{
+  auth: {
+    username: 'user',
+    password: 'password'
+  }
+});
         location.reload();
         this.$emit('window-deleted', this.window.id);
       } catch (error) {
@@ -112,7 +123,12 @@ export default {
     },
     async loadRooms() {
       try {
-        const response = await axios.get(`${API_HOST}/api/rooms`);
+        const response = await axios.get('http://localhost:8085/api/rooms', {
+        auth: {
+          username: 'user',
+          password: 'password'
+        }
+      }); 
         this.rooms = response.data;
       } catch (error) {
         console.error('Error fetching rooms:', error);

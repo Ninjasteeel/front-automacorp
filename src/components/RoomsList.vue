@@ -10,7 +10,7 @@
       <div v-for="window in room.windows" :key="window.id" class="border border-secondary rounded p-2 mb-2">
         <div class="top-row d-flex">
           <div class="fw-bold pe-3">{{ window.name }}</div>
-          <div class="ms-4">
+          <div class="ms-4" :class="{ 'text-success': window.windowStatus.value === 1, 'text-danger': window.windowStatus.value !== 1 }">
             <span v-if="window.windowStatus.value === 1">&#x2B24;</span>
             <span v-else>&#x2716;</span> {{ window.windowStatus.value === 1 ? 'Open' : 'Closed' }}
           </div>
@@ -37,7 +37,12 @@ export default {
   methods: {
     async loadRooms() {
       try {
-        const response = await axios.get(`${API_HOST}/api/rooms`);
+        const response = await axios.get('http://localhost:8085/api/rooms', {
+        auth: {
+          username: 'user',
+          password: 'password'
+        }
+      }); 
         this.rooms = response.data;
       } catch (error) {
         console.error('Error fetching rooms:', error);
@@ -48,23 +53,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.open-status {
-  .icon {
-    position: relative;
-  }
-
-  &.open {
-    color: #198754;
-    .icon {
-      font-size: 12px;
-      top: -3px;
-    }
-  }
-
-  &.closed {
-    color: #dc3545;
-  }
+.text-success {
+  color: #198754; /* green */
 }
+
+.text-danger {
+  color: #dc3545; /* red */
+}
+
+
+
+
+
 
 .window {
   .top-row {

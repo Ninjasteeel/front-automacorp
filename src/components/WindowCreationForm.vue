@@ -62,13 +62,18 @@ export default {
         name: 'Window 3 status room 2', // You may need to adjust this based on your data model
         value: 0,       // You may need to adjust this based on your data model
         sensorType: 'STATUS',
-        id:-10, // You may need to adjust this based on your data model
+        id:19, // You may need to adjust this based on your data model
       },
       roomId: this.selectedRoom,
     };
 
     // Send request to create window
-    const response = await axios.post(`http://automacorp-boumlik-elkihal.cleverapps.io/api/windows`, jsonPayload);
+const response = await axios.post(`http://localhost:8085/api/windows`, jsonPayload, {
+  auth: {
+    username: 'user',
+    password: 'password'
+  }
+});
     const createdWindow = response.data;
 
     // If successful, emit event to parent component
@@ -78,7 +83,7 @@ export default {
     this.resetForm();
   } catch (error) {
     console.error('Error creating window:', error);
-    this.creationError = 'An unexpected problem occurred, and the window could not be created.';
+    this.creationError = 'An unexpected problem occurred, and the window could not be created !';
   }
 },
   },

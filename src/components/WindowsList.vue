@@ -24,9 +24,14 @@ export default {
       windows: []
     }
   },
-  async created() {
+ async created() {
     try {
-      const response = await axios.get('http://automacorp-boumlik-elkihal.cleverapps.io/api/windows'); // Relative path due to the proxy
+      const response = await axios.get('http://localhost:8085/api/windows', {
+        auth: {
+          username: 'user',
+          password: 'password'
+        }
+      }); 
       console.log(response);
       const windows = response.data;
       this.windows = windows;
@@ -34,6 +39,7 @@ export default {
       console.error('Error fetching windows:', error);
     }
   },
+
   methods: {
     updateWindow(newWindow) {
       const index = this.windows.findIndex(window => window.id === newWindow.id);
